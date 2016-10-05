@@ -159,7 +159,7 @@
         }
     }
     
-    [self.inAppBrowserViewController showLocationBar:browserOptions.location];
+    //    [self.inAppBrowserViewController showLocationBar:browserOptions.location];
     [self.inAppBrowserViewController showToolBar:browserOptions.toolbar :browserOptions.toolbarposition];
     if (browserOptions.closebuttoncaption != nil) {
         [self.inAppBrowserViewController setCloseButtonTitle:browserOptions.closebuttoncaption];
@@ -510,7 +510,7 @@
     
     CGRect webViewBounds = self.view.bounds;
     BOOL toolbarIsAtBottom = ![_browserOptions.toolbarposition isEqualToString:kInAppBrowserToolbarBarPositionTop];
-    webViewBounds.size.height -= _browserOptions.location ? FOOTER_HEIGHT : TOOLBAR_HEIGHT;
+    //    webViewBounds.size.height -= _browserOptions.location ? FOOTER_HEIGHT : TOOLBAR_HEIGHT;
     self.webView = [[UIWebView alloc] initWithFrame:webViewBounds];
     
     self.webView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
@@ -555,7 +555,7 @@
     fixedSpaceButton.width = 20;
     
     float toolbarY = toolbarIsAtBottom ? self.view.bounds.size.height - TOOLBAR_HEIGHT : 0.0;
-    CGRect toolbarFrame = CGRectMake(0.0, toolbarY, self.view.bounds.size.width, TOOLBAR_HEIGHT);
+    CGRect toolbarFrame = CGRectMake(0.0, toolbarY, [UIScreen mainScreen].bounds.size.width, TOOLBAR_HEIGHT);
     
     self.toolbar = [[UIToolbar alloc] initWithFrame:toolbarFrame];
     self.toolbar.alpha = 1.000;
@@ -573,25 +573,25 @@
     self.toolbar.layer.borderWidth = 1;
     self.toolbar.layer.borderColor = [[UIColor colorWithRed:233.0 / 255.0 green:233.0 / 255.0 blue:233.0 / 255.0 alpha:1] CGColor];
     
-    CGFloat labelInset = 5.0;
-    float locationBarY = toolbarIsAtBottom ? self.view.bounds.size.height - FOOTER_HEIGHT : self.view.bounds.size.height - LOCATIONBAR_HEIGHT;
+    //    CGFloat labelInset = 5.0;
+    //    float locationBarY = toolbarIsAtBottom ? self.view.bounds.size.height - FOOTER_HEIGHT : self.view.bounds.size.height - LOCATIONBAR_HEIGHT;
     
-    self.addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(labelInset, locationBarY, self.view.bounds.size.width - labelInset, LOCATIONBAR_HEIGHT)];
-    self.addressLabel.adjustsFontSizeToFitWidth = NO;
-    self.addressLabel.alpha = 1.000;
-    self.addressLabel.autoresizesSubviews = YES;
-    self.addressLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
-    self.addressLabel.backgroundColor = [UIColor clearColor];
-    self.addressLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
-    self.addressLabel.clearsContextBeforeDrawing = YES;
-    self.addressLabel.clipsToBounds = YES;
-    self.addressLabel.contentMode = UIViewContentModeScaleToFill;
-    self.addressLabel.enabled = YES;
-    self.addressLabel.hidden = NO;
-    self.addressLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+    //    self.addressLabel = [[UILabel alloc] initWithFrame:CGRectMake(labelInset, locationBarY, self.view.bounds.size.width - labelInset, LOCATIONBAR_HEIGHT)];
+    //    self.addressLabel.adjustsFontSizeToFitWidth = NO;
+    //    self.addressLabel.alpha = 1.000;
+    //    self.addressLabel.autoresizesSubviews = YES;
+    //    self.addressLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+    //    self.addressLabel.backgroundColor = [UIColor clearColor];
+    //    self.addressLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
+    //    self.addressLabel.clearsContextBeforeDrawing = YES;
+    //    self.addressLabel.clipsToBounds = YES;
+    //    self.addressLabel.contentMode = UIViewContentModeScaleToFill;
+    //    self.addressLabel.enabled = YES;
+    //    self.addressLabel.hidden = NO;
+    //    self.addressLabel.lineBreakMode = NSLineBreakByTruncatingTail;
     
-    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0 , 11.0f, self.view.frame.size.width, 21.0f)];
-    [self.titleLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:18]];
+    self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0 , 11.0f, [UIScreen mainScreen].bounds.size.width - 100, 21.0f)];
+    [self.titleLabel setFont:[self misoFontAvailable] ?  [UIFont fontWithName:@"Miso" size:20] : [UIFont fontWithName:@"HelveticaNeue" size:18]];
     [self.titleLabel setBackgroundColor:[UIColor clearColor]];
     [self.titleLabel setTextColor:[UIColor colorWithRed:46.0/255.0 green:46.0/255.0 blue:46.0/255.0 alpha:1.0]];
     [self.titleLabel setText:@"Loading…"];
@@ -599,37 +599,49 @@
     
     UIBarButtonItem *titleItem = [[UIBarButtonItem alloc] initWithCustomView:self.titleLabel];
     
-    if ([self.addressLabel respondsToSelector:NSSelectorFromString(@"setMinimumScaleFactor:")]) {
-        [self.addressLabel setValue:@(10.0/[UIFont labelFontSize]) forKey:@"minimumScaleFactor"];
-    } else if ([self.addressLabel respondsToSelector:NSSelectorFromString(@"setMinimumFontSize:")]) {
-        [self.addressLabel setValue:@(10.0) forKey:@"minimumFontSize"];
-    }
+    //    if ([self.addressLabel respondsToSelector:NSSelectorFromString(@"setMinimumScaleFactor:")]) {
+    //        [self.addressLabel setValue:@(10.0/[UIFont labelFontSize]) forKey:@"minimumScaleFactor"];
+    //    } else if ([self.addressLabel respondsToSelector:NSSelectorFromString(@"setMinimumFontSize:")]) {
+    //        [self.addressLabel setValue:@(10.0) forKey:@"minimumFontSize"];
+    //    }
+    //
+    //    self.addressLabel.multipleTouchEnabled = NO;
+    //    self.addressLabel.numberOfLines = 1;
+    //    self.addressLabel.opaque = NO;
+    //    self.addressLabel.shadowOffset = CGSizeMake(0.0, -1.0);
+    //    self.addressLabel.text = NSLocalizedString(@"Loading...", nil);
+    //    self.addressLabel.textAlignment = NSTextAlignmentLeft;
+    //    self.addressLabel.textColor = [UIColor colorWithWhite:1.000 alpha:1.000];
+    //    self.addressLabel.userInteractionEnabled = NO;
     
-    self.addressLabel.multipleTouchEnabled = NO;
-    self.addressLabel.numberOfLines = 1;
-    self.addressLabel.opaque = NO;
-    self.addressLabel.shadowOffset = CGSizeMake(0.0, -1.0);
-    self.addressLabel.text = NSLocalizedString(@"Loading...", nil);
-    self.addressLabel.textAlignment = NSTextAlignmentLeft;
-    self.addressLabel.textColor = [UIColor colorWithWhite:1.000 alpha:1.000];
-    self.addressLabel.userInteractionEnabled = NO;
-    
-    NSString* frontArrowString = NSLocalizedString(@"►", nil); // create arrow from Unicode char
-    self.forwardButton = [[UIBarButtonItem alloc] initWithTitle:frontArrowString style:UIBarButtonItemStylePlain target:self action:@selector(goForward:)];
-    self.forwardButton.enabled = YES;
-    self.forwardButton.imageInsets = UIEdgeInsetsZero;
-    
-    NSString* backArrowString = NSLocalizedString(@"◄", nil); // create arrow from Unicode char
-    self.backButton = [[UIBarButtonItem alloc] initWithTitle:backArrowString style:UIBarButtonItemStylePlain target:self action:@selector(goBack:)];
-    self.backButton.enabled = YES;
-    self.backButton.imageInsets = UIEdgeInsetsZero;
+    //    NSString* frontArrowString = NSLocalizedString(@"►", nil); // create arrow from Unicode char
+    //    self.forwardButton = [[UIBarButtonItem alloc] initWithTitle:frontArrowString style:UIBarButtonItemStylePlain target:self action:@selector(goForward:)];
+    //    self.forwardButton.enabled = YES;
+    //    self.forwardButton.imageInsets = UIEdgeInsetsZero;
+    //
+    //    NSString* backArrowString = NSLocalizedString(@"◄", nil); // create arrow from Unicode char
+    //    self.backButton = [[UIBarButtonItem alloc] initWithTitle:backArrowString style:UIBarButtonItemStylePlain target:self action:@selector(goBack:)];
+    //    self.backButton.enabled = YES;
+    //    self.backButton.imageInsets = UIEdgeInsetsZero;
     
     [self.toolbar setItems:@[self.closeButton, flexibleSpaceButton, titleItem, flexibleSpaceButton]];//, self.backButton, fixedSpaceButton, self.forwardButton]];
     
     self.view.backgroundColor = [UIColor colorWithRed:233.0 / 255.0 green:233.0 / 255.0 blue:233.0 / 255.0 alpha:1];
     [self.view addSubview:self.toolbar];
-    [self.view addSubview:self.addressLabel];
+    //    [self.view addSubview:self.addressLabel];
     [self.view addSubview:self.spinner];
+}
+
+- (BOOL) misoFontAvailable {
+    NSArray *fontFamilies = [UIFont familyNames];
+    
+    for (int i = 0; i < [fontFamilies count]; i++) {
+        NSString *fontFamily = [fontFamilies objectAtIndex:i];
+        if ([fontFamily isEqualToString:@"Miso"]) {
+            return true;
+        }
+    }
+    return false;
 }
 
 - (void) setWebViewFrame : (CGRect) frame {
@@ -651,63 +663,63 @@
     [self.toolbar setItems:items];
 }
 
-- (void)showLocationBar:(BOOL)show
-{
-    CGRect locationbarFrame = self.addressLabel.frame;
-    
-    BOOL toolbarVisible = !self.toolbar.hidden;
-    
-    // prevent double show/hide
-    if (show == !(self.addressLabel.hidden)) {
-        return;
-    }
-    
-    if (show) {
-        self.addressLabel.hidden = NO;
-        
-        if (toolbarVisible) {
-            // toolBar at the bottom, leave as is
-            // put locationBar on top of the toolBar
-            
-            CGRect webViewBounds = self.view.bounds;
-            webViewBounds.size.height -= FOOTER_HEIGHT;
-            [self setWebViewFrame:webViewBounds];
-            
-            locationbarFrame.origin.y = webViewBounds.size.height;
-            self.addressLabel.frame = locationbarFrame;
-        } else {
-            // no toolBar, so put locationBar at the bottom
-            
-            CGRect webViewBounds = self.view.bounds;
-            webViewBounds.size.height -= LOCATIONBAR_HEIGHT;
-            [self setWebViewFrame:webViewBounds];
-            
-            locationbarFrame.origin.y = webViewBounds.size.height;
-            self.addressLabel.frame = locationbarFrame;
-        }
-    } else {
-        self.addressLabel.hidden = YES;
-        
-        if (toolbarVisible) {
-            // locationBar is on top of toolBar, hide locationBar
-            
-            // webView take up whole height less toolBar height
-            CGRect webViewBounds = self.view.bounds;
-            webViewBounds.size.height -= TOOLBAR_HEIGHT;
-            [self setWebViewFrame:webViewBounds];
-        } else {
-            // no toolBar, expand webView to screen dimensions
-            [self setWebViewFrame:self.view.bounds];
-        }
-    }
-}
+//- (void)showLocationBar:(BOOL)show
+//{
+//    CGRect locationbarFrame = self.addressLabel.frame;
+//
+//    BOOL toolbarVisible = !self.toolbar.hidden;
+//
+//    // prevent double show/hide
+//    if (show == !(self.addressLabel.hidden)) {
+//        return;
+//    }
+//
+//    if (show) {
+//        self.addressLabel.hidden = NO;
+//
+//        if (toolbarVisible) {
+//            // toolBar at the bottom, leave as is
+//            // put locationBar on top of the toolBar
+//
+//            CGRect webViewBounds = self.view.bounds;
+//            webViewBounds.size.height -= FOOTER_HEIGHT;
+//            [self setWebViewFrame:webViewBounds];
+//
+//            locationbarFrame.origin.y = webViewBounds.size.height;
+//            self.addressLabel.frame = locationbarFrame;
+//        } else {
+//            // no toolBar, so put locationBar at the bottom
+//
+//            CGRect webViewBounds = self.view.bounds;
+//            webViewBounds.size.height -= LOCATIONBAR_HEIGHT;
+//            [self setWebViewFrame:webViewBounds];
+//
+//            locationbarFrame.origin.y = webViewBounds.size.height;
+//            self.addressLabel.frame = locationbarFrame;
+//        }
+//    } else {
+//        self.addressLabel.hidden = YES;
+//
+//        if (toolbarVisible) {
+//            // locationBar is on top of toolBar, hide locationBar
+//
+//            // webView take up whole height less toolBar height
+//            CGRect webViewBounds = self.view.bounds;
+//            webViewBounds.size.height -= TOOLBAR_HEIGHT;
+//            [self setWebViewFrame:webViewBounds];
+//        } else {
+//            // no toolBar, expand webView to screen dimensions
+//            [self setWebViewFrame:self.view.bounds];
+//        }
+//    }
+//}
 
 - (void)showToolBar:(BOOL)show : (NSString *) toolbarPosition
 {
     CGRect toolbarFrame = self.toolbar.frame;
-    CGRect locationbarFrame = self.addressLabel.frame;
+    //    CGRect locationbarFrame = self.addressLabel.frame;
     
-    BOOL locationbarVisible = !self.addressLabel.hidden;
+    BOOL locationbarVisible = false;//!self.addressLabel.hidden;
     
     // prevent double show/hide
     if (show == !(self.toolbar.hidden)) {
@@ -722,8 +734,8 @@
             // locationBar at the bottom, move locationBar up
             // put toolBar at the bottom
             webViewBounds.size.height -= FOOTER_HEIGHT;
-            locationbarFrame.origin.y = webViewBounds.size.height;
-            self.addressLabel.frame = locationbarFrame;
+            //            locationbarFrame.origin.y = webViewBounds.size.height;
+            //            self.addressLabel.frame = locationbarFrame;
             self.toolbar.frame = toolbarFrame;
         } else {
             // no locationBar, so put toolBar at the bottom
@@ -754,8 +766,8 @@
             [self setWebViewFrame:webViewBounds];
             
             // move locationBar down
-            locationbarFrame.origin.y = webViewBounds.size.height;
-            self.addressLabel.frame = locationbarFrame;
+            //            locationbarFrame.origin.y = webViewBounds.size.height;
+            //            self.addressLabel.frame = locationbarFrame;
         } else {
             // no locationBar, expand webView to screen dimensions
             [self setWebViewFrame:self.view.bounds];
@@ -865,7 +877,7 @@
 {
     // loading url, start spinner, update back/forward
     
-    self.addressLabel.text = NSLocalizedString(@"Loading...", nil);
+    //    self.addressLabel.text = NSLocalizedString(@"Loading...", nil);
     self.backButton.enabled = theWebView.canGoBack;
     self.forwardButton.enabled = theWebView.canGoForward;
     
@@ -888,7 +900,7 @@
 {
     // update url, stop spinner, update back/forward
     
-    self.addressLabel.text = [self.currentURL absoluteString];
+    //    self.addressLabel.text = [self.currentURL absoluteString];
     self.backButton.enabled = theWebView.canGoBack;
     self.forwardButton.enabled = theWebView.canGoForward;
     
@@ -914,6 +926,8 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, .5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         NSString *theTitle=[self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
         self.titleLabel.text = theTitle;
+        NSLog(@"%f", self.toolbar.frame.size.width);
+        NSLog(@"%f", self.titleLabel.frame.size.width);
     });
 }
 
@@ -926,7 +940,7 @@
     self.forwardButton.enabled = theWebView.canGoForward;
     [self.spinner stopAnimating];
     
-    self.addressLabel.text = NSLocalizedString(@"Load Error", nil);
+    //    self.addressLabel.text = NSLocalizedString(@"Load Error", nil);
     
     [self.navigationDelegate webView:theWebView didFailLoadWithError:error];
 }
